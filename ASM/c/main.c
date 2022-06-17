@@ -16,6 +16,7 @@
 #include "ganon_boss_key.h"
 #include "extern_ctxt.h"
 #include "weather.h"
+#include "cc.h"
 
 void Gameplay_InitSkybox(z64_game_t* globalCtx, int16_t skyboxId);
 
@@ -28,6 +29,7 @@ void c_init() {
 }
 
 void before_game_state_update() {
+    apply_cc();
     handle_pending_items();
     handle_dpad();
     update_misc_colors();

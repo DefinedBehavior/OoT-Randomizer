@@ -1,6 +1,8 @@
 #include "gfx.h"
 #include "dpad.h"
 
+#include "cc.h"
+
 extern uint8_t CFG_DISPLAY_DPAD;
 
 //unknown 00 is a pointer to some vector transformation when the sound is tied to an actor. actor + 0x3E, when not tied to an actor (map), always 80104394
@@ -20,14 +22,14 @@ void handle_dpad() {
 
     if (CAN_USE_DPAD && DISPLAY_DPAD) {
         if (z64_file.link_age == 0) {
-            if (pad_pressed.dl && z64_file.iron_boots) {
+            if (pad_pressed.dl && z64_file.iron_boots && boot_change_allowed()) {
                 if (z64_file.equip_boots == 2) z64_file.equip_boots = 1;
                 else z64_file.equip_boots = 2;
                 z64_UpdateEquipment(&z64_game, &z64_link);
                 z64_playsfx(0x835, (z64_xyzf_t*)0x80104394, 0x04, (float*)0x801043A0, (float*)0x801043A0, (float*)0x801043A8);
             }
 
-            if (pad_pressed.dr && z64_file.hover_boots) {
+            if (pad_pressed.dr && z64_file.hover_boots && boot_change_allowed()) {
                 if (z64_file.equip_boots == 3) z64_file.equip_boots = 1;
                 else z64_file.equip_boots = 3;
                 z64_UpdateEquipment(&z64_game, &z64_link);
